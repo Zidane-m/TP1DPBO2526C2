@@ -3,13 +3,13 @@ Sistem Manajemen Data Bioskop dalam 4 Bahasa Pemrograman (C++, Java, Python, PHP
 
 ---
 
-## 📌 Janji
+## Janji
 
-> Saya [Isi Nama Anda] NIM [Isi NIM Anda] mengerjakan Tugas Praktikum 1 dalam mata kuliah Desain dan Pemrograman Berbasis Objek untuk keberkahan-Nya maka saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
+> Saya Muhammad Zidan Mirza Fedrieka dengan NIM 2507692 mengerjakan Tugas Praktikum 1 dalam mata kuliah Desain Pemrograman Berorientasi Objek untuk keberkahan-Nya maka saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
 
 ---
 
-## 🏗️ Penjelasan Desain dan Kode (Flow Kode)
+## Penjelasan Desain dan Kode (Flow Kode)
 
 ### 1. Desain Class & Enkapsulasi (Encapsulation)
 Aplikasi ini menggunakan konsep **Object-Oriented Programming (OOP)** dengan pembungkusan data (*Encapsulation*) pada sebuah kelas bernama `Film`.
@@ -51,7 +51,7 @@ Program mengelola sekumpulan objek `Film` menggunakan struktur *Array / List of 
 
 ---
 
-## 📷 Dokumentasi Program (Hasil Output)
+## Dokumentasi Program (Hasil Output)
 
 *Ruang (space) untuk menambahkan gambar screenshot / screenrecord bahwa program berhasil berjalan pada ke-4 bahasa pemrograman:*
 
