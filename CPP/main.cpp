@@ -116,15 +116,11 @@ int main(){
             cout << "\n--- Data Film ---" << endl;
 
             // Mengecek apakah belum ada data
-            if (jumlahFilm == 0)
-            {
+            if (jumlahFilm == 0){
                 cout << "Belum ada data film." << endl;
-            }
-            else
-            {
+            }else{
                 // Menampilkan seluruh data film
-                for (int i = 0; i < jumlahFilm; i++)
-                {
+                for (int i = 0; i < jumlahFilm; i++){
                     cout << "\nFilm ke-" << i + 1 << endl;
                     cout << "--------------------------" << endl;
 
@@ -137,14 +133,9 @@ int main(){
             cin.ignore();
             cin.get();
         }
-
-
-    
+        
         // 3. UPDATE DATA
-    
-
-        else if (pilihan == 3)
-        {
+        else if (pilihan == 3){
             int idCari;
 
             cout << "\n--- Update Data Film ---" << endl;
@@ -155,21 +146,16 @@ int main(){
             int posisi = -1;
 
             // Mencari film berdasarkan ID
-            for (int i = 0; i < jumlahFilm; i++)
-            {
-                if (daftarFilm[i].getId() == idCari)
-                {
+            for (int i = 0; i < jumlahFilm; i++){
+                if (daftarFilm[i].getId() == idCari){
                     posisi = i;
                 }
             }
 
             // Jika posisi masih -1, berarti data tidak ditemukan
-            if (posisi == -1)
-            {
+            if (posisi == -1){
                 cout << "Data film tidak ditemukan!" << endl;
-            }
-            else
-            {
+            }else{
                 string judulBaru;
                 string genreBaru;
                 int durasiBaru;
@@ -188,32 +174,24 @@ int main(){
                 cin >> durasiBaru;
 
                 // Mengecek durasi baru
-                if (durasiBaru <= 0)
-                {
+                if (durasiBaru <= 0){
                     cout << "Durasi harus lebih dari 0!" << endl;
-                }
-                else
-                {
+                }else{
                     cin.ignore();
 
                     cout << "Masukkan Path Gambar Baru : ";
                     getline(cin, gambarBaru);
 
                     // Mengecek input yang kosong
-                    if (judulBaru == "")
-                    {
+                    if (judulBaru == ""){
                         cout << "Judul tidak boleh kosong!" << endl;
                     }
-                    else if (genreBaru == "")
-                    {
+                    else if (genreBaru == ""){
                         cout << "Genre tidak boleh kosong!" << endl;
                     }
-                    else if (gambarBaru == "")
-                    {
+                    else if (gambarBaru == ""){
                         cout << "Path gambar tidak boleh kosong!" << endl;
-                    }
-                    else
-                    {
+                    }else{
                         // Mengubah data menggunakan setter
                         daftarFilm[posisi].setJudul(judulBaru);
                         daftarFilm[posisi].setGenre(genreBaru);
@@ -226,8 +204,7 @@ int main(){
             }
         }
         // 4. HAPUS DATA
-        else if (pilihan == 4)
-        {
+        else if (pilihan == 4){
             int idHapus;
 
             cout << "\n--- Hapus Data Film ---" << endl;
@@ -238,21 +215,16 @@ int main(){
             int posisi = -1;
 
             // Mencari film berdasarkan ID
-            for (int i = 0; i < jumlahFilm; i++)
-            {
-                if (daftarFilm[i].getId() == idHapus)
-                {
+            for (int i = 0; i < jumlahFilm; i++){
+                if (daftarFilm[i].getId() == idHapus){
                     posisi = i;
                 }
             }
 
             // Jika data tidak ditemukan
-            if (posisi == -1)
-            {
+            if (posisi == -1){
                 cout << "Data film tidak ditemukan!" << endl;
-            }
-            else
-            {
+            }else{
                 // Menggeser data setelah data yang dihapus
                 // satu posisi ke kiri
                 for (int i = posisi; i < jumlahFilm - 1; i++)
@@ -267,13 +239,8 @@ int main(){
             }
         }
 
-
-    
         // 5. CARI DATA
-    
-
-        else if (pilihan == 5)
-        {
+        else if (pilihan == 5){
             int idCari;
 
             cout << "\n--- Cari Data Film ---" << endl;
@@ -284,21 +251,16 @@ int main(){
             int posisi = -1;
 
             // Mencari data berdasarkan ID
-            for (int i = 0; i < jumlahFilm; i++)
-            {
-                if (daftarFilm[i].getId() == idCari)
-                {
+            for (int i = 0; i < jumlahFilm; i++){
+                if (daftarFilm[i].getId() == idCari){
                     posisi = i;
                 }
             }
 
             // Mengecek apakah data ditemukan
-            if (posisi == -1)
-            {
+            if (posisi == -1){
                 cout << "Data film tidak ditemukan!" << endl;
-            }
-            else
-            {
+            }else{
                 cout << "\nData film ditemukan!" << endl;
                 cout << "--------------------------" << endl;
 
@@ -310,24 +272,13 @@ int main(){
             cin.ignore();
             cin.get();
         }
-
-
-    
+        
         // 6. KELUAR
-    
-
-        else if (pilihan == 6)
-        {
+        else if (pilihan == 6){
             cout << "\nProgram selesai." << endl;
         }
-
-
-    
         // PILIHAN TIDAK VALID
-    
-
-        else
-        {
+        else{
             cout << "Pilihan menu tidak valid!" << endl;
             cout << "Silakan pilih menu 1 sampai 6." << endl;
         }
