@@ -73,7 +73,21 @@ Program mengelola daftar objek `Film` menggunakan struktur data *Array of Object
 
 ## Cara Menjalankan Program
 
-### 1. C++
+### 1. Clone Repository & Persiapan
+
+Lakukan kloning repository ini terlebih dahulu dan masuk ke direktori proyek:
+
+```bash
+# Clone repository
+git clone https://github.com/Zidane-m/TP1DPBO2526C2.git
+
+# Masuk ke direktori proyek
+cd TP1DPBO2526C2
+```
+
+---
+
+### 2. C++
 ```bash
 # Masuk ke direktori CPP
 cd CPP
@@ -88,7 +102,7 @@ g++ main.cpp -o main
 ./main
 ```
 
-### 2. Java
+### 3. Java
 ```bash
 # Masuk ke direktori Java
 cd Java
@@ -100,7 +114,7 @@ javac Film.java Main.java
 java Main
 ```
 
-### 3. Python
+### 4. Python
 ```bash
 # Masuk ke direktori Python
 cd Python
@@ -111,7 +125,7 @@ py main.py
 python main.py
 ```
 
-### 4. PHP (Web Interface)
+### 5. PHP (Web Interface)
 ```bash
 # Masuk ke direktori PHP
 cd PHP
