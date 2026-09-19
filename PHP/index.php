@@ -12,14 +12,32 @@ if (isset($_SESSION['daftar_film']) && is_array($_SESSION['daftar_film'])) {
     }
 }
 
+$defaultFilms = [
+    new Film(1, "Inception", "Sci-Fi", 148, "images/inception.webp"),
+    new Film(2, "Agak Laen 2", "Comedy", 96, "images/AgakLaen.webp"),
+    new Film(3, "Interstellar", "Sci-Fi", 169, "images/interstellar.webp"),
+    new Film(4, "Avengers: Doomsday", "Action", 180, "images/Avengers_Doomsday.webp"),
+    new Film(5, "Merah Putih One For All", "Action", 120, "images/merah_putih_ofa.webp")
+];
+
+// Fitur Reset Data Sampel
+if (isset($_GET['reset_data'])) {
+    $_SESSION['daftar_film'] = $defaultFilms;
+    header('Location: index.php');
+    exit;
+}
+
 // Inisialisasi data sampel awal jika session masih kosong
 if (!isset($_SESSION['daftar_film'])) {
-    $_SESSION['daftar_film'] = [
-        new Film(1, "Inception", "Sci-Fi", 148, "images/inception.webp"),
-        new Film(2, "Agak Laen 2", "Comedy", 96, "images/AgakLaen.webp"),
-        new Film(3, "Interstellar", "Sci-Fi", 169, "images/interstellar.webp")
-    ];
+    $_SESSION['daftar_film'] = $defaultFilms;
 } else {
+    // Sinkronisasi data sampel default jika belum ada di session (misal terhapus / baru ditambahkan)
+    $existingIds = array_map(function($f) { return $f->getId(); }, $_SESSION['daftar_film']);
+    foreach ($defaultFilms as $defFilm) {
+        if (!in_array($defFilm->getId(), $existingIds)) {
+            $_SESSION['daftar_film'][] = $defFilm;
+        }
+    }
     // Otomatis memperbarui path pada session jika file .jpg/.png dikonversi ke .webp
     foreach ($_SESSION['daftar_film'] as $film) {
         $gambarSaatIni = $film->getGambar();
@@ -281,7 +299,7 @@ foreach ($_SESSION['daftar_film'] as $film) {
 <div class="container py-4">
     <div class="custom-header text-center mb-4">
         <h1>Manajemen Data Bioskop</h1>
-        <p class="text-muted">Aplikasi Pengelolaan Data Film Bioskop berbasis PHP (Object-Oriented Programming) dengan Bootstrap 5</p>
+        <p class="text-muted">Web Pengelolaan Data Film Bioskop berbasis PHP (Object-Oriented Programming)</p>
     </div>
 
     <?php if ($pesan): ?>
@@ -360,9 +378,12 @@ foreach ($_SESSION['daftar_film'] as $film) {
                         </div>
                         <?php if ($searchKeyword !== ""): ?>
                             <div class="col-auto">
-                                <a href="index.php" class="btn btn-secondary">Reset</a>
+                                <a href="index.php" class="btn btn-secondary">Reset Search</a>
                             </div>
                         <?php endif; ?>
+                        <div class="col-auto">
+                            <a href="index.php?reset_data=1" class="btn btn-outline-secondary" onclick="return confirm('Apakah Anda yakin ingin mengembalikan daftar film ke data sampel awal?')">Reset Sampel</a>
+                        </div>
                     </form>
 
                     <div class="table-responsive">
