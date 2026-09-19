@@ -15,10 +15,21 @@ if (isset($_SESSION['daftar_film']) && is_array($_SESSION['daftar_film'])) {
 // Inisialisasi data sampel awal jika session masih kosong
 if (!isset($_SESSION['daftar_film'])) {
     $_SESSION['daftar_film'] = [
-        new Film(1, "Inception", "Sci-Fi", 148, "images/inception.jpg"),
-        new Film(2, "The Dark Knight", "Action", 152, "images/dark_knight.jpg"),
-        new Film(3, "Interstellar", "Sci-Fi", 169, "images/interstellar.jpg")
+        new Film(1, "Inception", "Sci-Fi", 148, "images/inception.webp"),
+        new Film(2, "Agak Laen 2", "Comedy", 96, "images/AgakLaen.webp"),
+        new Film(3, "Interstellar", "Sci-Fi", 169, "images/interstellar.webp")
     ];
+} else {
+    // Otomatis memperbarui path pada session jika file .jpg/.png dikonversi ke .webp
+    foreach ($_SESSION['daftar_film'] as $film) {
+        $gambarSaatIni = $film->getGambar();
+        if (!file_exists(__DIR__ . '/' . $gambarSaatIni)) {
+            $webpPath = preg_replace('/\.(jpg|jpeg|png)$/i', '.webp', $gambarSaatIni);
+            if (file_exists(__DIR__ . '/' . $webpPath)) {
+                $film->setGambar($webpPath);
+            }
+        }
+    }
 }
 
 $pesan = "";
@@ -157,231 +168,89 @@ foreach ($_SESSION['daftar_film'] as $film) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Manajemen Data Bioskop</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-smooth: #f4f6f9;
-            --card-bg: #ffffff;
-            --card-header-bg: #2563eb;
-            --card-header-text: #ffffff;
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --accent: #d97706;
-            --danger: #dc2626;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Outfit', sans-serif;
-        }
-
         body {
-            background: var(--bg-smooth);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 2rem 1rem;
+            font-family: 'Outfit', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .header h1 {
-            font-size: 2.2rem;
+        .custom-header h1 {
             font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 0.4rem;
+            color: rgb(0, 120, 200);
         }
 
-        .header p {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        .alert {
-            padding: 0.85rem 1.25rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .alert-success { background: #dcfce7; border: 1px solid #86efac; color: #166534; }
-        .alert-danger { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; }
-        .alert-warning { background: #fef3c7; border: 1px solid #fde047; color: #854d0e; }
-        .alert-info { background: #dbeafe; border: 1px solid #93c5fd; color: #1e40af; }
-
-        .layout-grid {
-            display: grid;
-            grid-template-columns: 340px 1fr;
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 850px) {
-            .layout-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+        .custom-card {
             border-radius: 12px;
             overflow: hidden;
+            border: 1px solid #e2e8f0;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
-        .card-header {
-            background: var(--card-header-bg);
-            color: var(--card-header-text);
+        .custom-card-header {
+            background-color: rgb(0, 158, 255);
+            color: #ffffff;
+            font-weight: 600;
             padding: 0.9rem 1.25rem;
             font-size: 1.1rem;
-            font-weight: 600;
         }
 
-        .card-body {
-            padding: 1.25rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 0.35rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.65rem 0.85rem;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            color: var(--text-main);
-            font-size: 0.9rem;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-
-        .btn {
-            display: inline-block;
-            width: 100%;
-            padding: 0.75rem 1rem;
+        .btn-custom-primary {
+            background-color: rgb(0, 158, 255);
+            color: #ffffff;
             border: none;
-            border-radius: 6px;
             font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            text-align: center;
-            text-decoration: none;
-            font-size: 0.9rem;
         }
 
-        .btn-primary {
-            background: var(--primary);
+        .btn-custom-primary:hover {
+            background-color: rgb(0, 130, 215);
             color: #ffffff;
         }
 
-        .btn-primary:hover {
-            background: var(--primary-hover);
-        }
-
-        .btn-warning {
-            background: #f59e0b;
-            color: #ffffff;
-        }
-
-        .btn-warning:hover {
-            background: #d97706;
-        }
-
-        .btn-secondary {
-            background: #e2e8f0;
-            color: var(--text-main);
-            margin-top: 0.5rem;
-        }
-
-        .btn-secondary:hover {
-            background: #cbd5e1;
-        }
-
-        /* Search Section */
-        .search-box {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .search-box .form-control {
+        .table-custom {
             margin-bottom: 0;
         }
 
-        .search-box .btn {
-            width: auto;
-            white-space: nowrap;
-        }
-
-        /* Table Styling */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th {
-            background: #f1f5f9;
-            padding: 0.75rem 1rem;
+        .table-custom th {
+            background-color: rgb(224, 242, 254);
+            color: rgb(3, 105, 161);
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 2px solid rgb(186, 230, 253);
+            padding: 0.75rem 1rem;
         }
 
-        td {
+        .table-custom td {
             padding: 0.85rem 1rem;
-            border-bottom: 1px solid var(--border);
             vertical-align: middle;
+            border-bottom: 1px solid #e2e8f0;
             font-size: 0.9rem;
         }
 
-        tr:hover td {
-            background: #f8fafc;
+        .table-custom tbody tr:nth-child(odd) {
+            background-color: #ffffff;
         }
 
-        .badge {
-            display: inline-block;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
+        .table-custom tbody tr:nth-child(even) {
+            background-color: rgb(240, 249, 255);
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: rgb(224, 242, 254);
+        }
+
+        .badge-genre {
+            background-color: rgb(224, 242, 254);
+            color: rgb(3, 105, 161);
             font-weight: 600;
-            background: #dbeafe;
-            color: #1e40af;
+            font-size: 0.75rem;
+            padding: 0.3em 0.6em;
+            border-radius: 4px;
         }
 
         .img-thumb {
@@ -389,189 +258,167 @@ foreach ($_SESSION['daftar_film'] as $film) {
             height: 60px;
             object-fit: cover;
             border-radius: 4px;
-            border: 1px solid var(--border);
-            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
         }
 
         .img-placeholder {
             width: 45px;
             height: 60px;
             border-radius: 4px;
-            background: #f1f5f9;
+            background-color: #f1f5f9;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.65rem;
-            color: var(--text-muted);
+            color: #64748b;
             text-align: center;
             padding: 2px;
-        }
-
-        .action-btns {
-            display: flex;
-            gap: 0.35rem;
-        }
-
-        .btn-sm {
-            padding: 0.35rem 0.6rem;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            width: auto;
-        }
-
-        .btn-danger {
-            background: #fee2e2;
-            color: #dc2626;
-            border: 1px solid #fca5a5;
-        }
-
-        .btn-danger:hover {
-            background: var(--danger);
-            color: #ffffff;
-        }
-
-        .btn-edit {
-            background: #fef3c7;
-            color: #d97706;
-            border: 1px solid #fde047;
-        }
-
-        .btn-edit:hover {
-            background: #f59e0b;
-            color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>🎬 Manajemen Data Bioskop</h1>
-        <p>Aplikasi Pengelolaan Data Film Bioskop berbasis PHP (Object-Oriented Programming)</p>
+<div class="container py-4">
+    <div class="custom-header text-center mb-4">
+        <h1>Manajemen Data Bioskop</h1>
+        <p class="text-muted">Aplikasi Pengelolaan Data Film Bioskop berbasis PHP (Object-Oriented Programming) dengan Bootstrap 5</p>
     </div>
 
     <?php if ($pesan): ?>
-        <div class="alert alert-<?= $tipePesan ?>">
-            <span><?= htmlspecialchars($pesan) ?></span>
+        <div class="alert alert-<?= $tipePesan ?> alert-dismissible fade show mb-4" role="alert">
+            <?= htmlspecialchars($pesan) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
 
-    <div class="layout-grid">
+    <div class="row g-4">
         <!-- Form Section (Tambah / Edit) -->
-        <div class="card">
-            <div class="card-header">
-                <?= $editFilm ? "✏️ Edit Data Film" : "➕ Tambah Data Film" ?>
-            </div>
-            <div class="card-body">
-                <form action="index.php" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="<?= $editFilm ? 'update' : 'tambah' ?>">
+        <div class="col-lg-4">
+            <div class="card custom-card">
+                <div class="custom-card-header">
+                    <?= $editFilm ? "✏️ Edit Data Film" : "➕ Tambah Data Film" ?>
+                </div>
+                <div class="card-body">
+                    <form action="index.php" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="action" value="<?= $editFilm ? 'update' : 'tambah' ?>">
 
-                    <div class="form-group">
-                        <label>ID Film</label>
-                        <input type="number" name="id" class="form-control" placeholder="Contoh: 1" value="<?= $editFilm ? $editFilm->getId() : '' ?>" <?= $editFilm ? 'readonly' : 'required' ?>>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">ID Film</label>
+                            <input type="number" name="id" class="form-control" placeholder="Contoh: 1" value="<?= $editFilm ? $editFilm->getId() : '' ?>" <?= $editFilm ? 'readonly' : 'required' ?>>
+                            <?php if ($editFilm): ?>
+                                <div class="form-text text-muted small">ID tidak dapat diubah saat mode edit.</div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Judul Film</label>
+                            <input type="text" name="judul" class="form-control" placeholder="Judul film..." value="<?= $editFilm ? htmlspecialchars($editFilm->getJudul()) : '' ?>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Genre</label>
+                            <input type="text" name="genre" class="form-control" placeholder="Genre film (misal: Action, Sci-Fi)..." value="<?= $editFilm ? htmlspecialchars($editFilm->getGenre()) : '' ?>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Durasi (Menit)</label>
+                            <input type="number" name="durasi" class="form-control" placeholder="Contoh: 120" value="<?= $editFilm ? $editFilm->getDurasi() : '' ?>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Path Gambar / Upload</label>
+                            <input type="text" name="gambar_text" class="form-control mb-2" placeholder="images/foto.webp" value="<?= $editFilm ? htmlspecialchars($editFilm->getGambar()) : '' ?>">
+                            <input type="file" name="gambar_file" class="form-control" accept="image/*">
+                        </div>
+
+                        <button type="submit" class="btn <?= $editFilm ? 'btn-warning text-white' : 'btn-custom-primary' ?> w-100 fw-semibold">
+                            <?= $editFilm ? 'Simpan Perubahan' : 'Tambah Film' ?>
+                        </button>
+
                         <?php if ($editFilm): ?>
-                            <small style="color: var(--text-muted); font-size:0.75rem;">ID tidak dapat diubah saat mode edit.</small>
+                            <a href="index.php" class="btn btn-secondary w-100 fw-semibold mt-2">Batal Edit</a>
                         <?php endif; ?>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Judul Film</label>
-                        <input type="text" name="judul" class="form-control" placeholder="Judul film..." value="<?= $editFilm ? htmlspecialchars($editFilm->getJudul()) : '' ?>" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Genre</label>
-                        <input type="text" name="genre" class="form-control" placeholder="Genre film (misal: Action, Sci-Fi)..." value="<?= $editFilm ? htmlspecialchars($editFilm->getGenre()) : '' ?>" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Durasi (Menit)</label>
-                        <input type="number" name="durasi" class="form-control" placeholder="Contoh: 120" value="<?= $editFilm ? $editFilm->getDurasi() : '' ?>" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Path Gambar / Upload</label>
-                        <input type="text" name="gambar_text" class="form-control" placeholder="images/foto.jpg" value="<?= $editFilm ? htmlspecialchars($editFilm->getGambar()) : '' ?>" style="margin-bottom:0.5rem;">
-                        <input type="file" name="gambar_file" class="form-control" accept="image/*">
-                    </div>
-
-                    <button type="submit" class="btn <?= $editFilm ? 'btn-warning' : 'btn-primary' ?>">
-                        <?= $editFilm ? 'Simpan Perubahan' : 'Tambah Film' ?>
-                    </button>
-
-                    <?php if ($editFilm): ?>
-                        <a href="index.php" class="btn btn-secondary">Batal Edit</a>
-                    <?php endif; ?>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
 
         <!-- Table & Search Section -->
-        <div class="card">
-            <div class="card-header">
-                📋 Daftar Film Bioskop
-            </div>
-            <div class="card-body">
-                <!-- Search Bar -->
-                <form action="index.php" method="GET" class="search-box">
-                    <input type="text" name="search" class="form-control" placeholder="Cari berdasarkan ID, Judul, atau Genre..." value="<?= htmlspecialchars($searchKeyword) ?>">
-                    <button type="submit" class="btn btn-primary">Cari</button>
-                    <?php if ($searchKeyword !== ""): ?>
-                        <a href="index.php" class="btn btn-secondary" style="margin-top:0;">Reset</a>
-                    <?php endif; ?>
-                </form>
+        <div class="col-lg-8">
+            <div class="card custom-card">
+                <div class="custom-card-header">
+                    📋 Daftar Film Bioskop
+                </div>
+                <div class="card-body">
+                    <!-- Search Bar -->
+                    <form action="index.php" method="GET" class="row g-2 mb-3">
+                        <div class="col">
+                            <input type="text" name="search" class="form-control" placeholder="Cari berdasarkan ID, Judul, atau Genre..." value="<?= htmlspecialchars($searchKeyword) ?>">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-custom-primary">Cari</button>
+                        </div>
+                        <?php if ($searchKeyword !== ""): ?>
+                            <div class="col-auto">
+                                <a href="index.php" class="btn btn-secondary">Reset</a>
+                            </div>
+                        <?php endif; ?>
+                    </form>
 
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Cover</th>
-                                <th>ID</th>
-                                <th>Judul</th>
-                                <th>Genre</th>
-                                <th>Durasi</th>
-                                <th>Path Gambar</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (empty($daftarTampil)): ?>
+                    <div class="table-responsive">
+                        <table class="table table-custom">
+                            <thead>
                                 <tr>
-                                    <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">
-                                        Belum ada data film yang tersimpan.
-                                    </td>
+                                    <th>Cover</th>
+                                    <th>ID</th>
+                                    <th>Judul</th>
+                                    <th>Genre</th>
+                                    <th>Durasi</th>
+                                    <th>Path Gambar</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            <?php else: ?>
-                                <?php foreach ($daftarTampil as $film): ?>
+                            </thead>
+                            <tbody>
+                                <?php if (empty($daftarTampil)): ?>
                                     <tr>
-                                        <td>
-                                            <?php if (file_exists(__DIR__ . '/' . $film->getGambar()) && !is_dir(__DIR__ . '/' . $film->getGambar())): ?>
-                                                <img src="<?= htmlspecialchars($film->getGambar()) ?>" alt="<?= htmlspecialchars($film->getJudul()) ?>" class="img-thumb">
-                                            <?php else: ?>
-                                                <div class="img-placeholder"><?= htmlspecialchars($film->getGambar() ?: 'No Image') ?></div>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td><strong>#<?= $film->getId() ?></strong></td>
-                                        <td><strong><?= htmlspecialchars($film->getJudul()) ?></strong></td>
-                                        <td><span class="badge"><?= htmlspecialchars($film->getGenre()) ?></span></td>
-                                        <td><?= $film->getDurasi() ?> menit</td>
-                                        <td style="font-size: 0.8rem; color: var(--text-muted);"><?= htmlspecialchars($film->getGambar()) ?></td>
-                                        <td>
-                                            <div class="action-btns">
-                                                <a href="index.php?edit=<?= $film->getId() ?>" class="btn btn-sm btn-edit">Edit</a>
-                                                <a href="index.php?hapus=<?= $film->getId() ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus film ini?')">Hapus</a>
-                                            </div>
+                                        <td colspan="7" class="text-center text-muted py-4">
+                                            Belum ada data film yang tersimpan.
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                                <?php else: ?>
+                                    <?php foreach ($daftarTampil as $film): ?>
+                                        <tr>
+                                            <td>
+                                                <?php if (file_exists(__DIR__ . '/' . $film->getGambar()) && !is_dir(__DIR__ . '/' . $film->getGambar())): ?>
+                                                    <img src="<?= htmlspecialchars($film->getGambar()) ?>" alt="<?= htmlspecialchars($film->getJudul()) ?>" class="img-thumb">
+                                                <?php else: ?>
+                                                    <div class="img-placeholder"><?= htmlspecialchars($film->getGambar() ?: 'No Image') ?></div>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td><strong>#<?= $film->getId() ?></strong></td>
+                                            <td><strong><?= htmlspecialchars($film->getJudul()) ?></strong></td>
+                                            <td><span class="badge-genre"><?= htmlspecialchars($film->getGenre()) ?></span></td>
+                                            <td><?= $film->getDurasi() ?> menit</td>
+                                            <td class="small text-muted"><?= htmlspecialchars($film->getGambar()) ?></td>
+                                            <td>
+                                                <div class="d-flex gap-1">
+                                                    <a href="index.php?edit=<?= $film->getId() ?>" class="btn btn-sm btn-warning text-white fw-semibold">Edit</a>
+                                                    <a href="index.php?hapus=<?= $film->getId() ?>" class="btn btn-sm btn-danger fw-semibold" onclick="return confirm('Apakah Anda yakin ingin menghapus film ini?')">Hapus</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Bootstrap 5 JS Bundle CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
