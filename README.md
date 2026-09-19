@@ -47,9 +47,6 @@ C:.
 │   │   index.php
 │   │
 │   └───images
-│           AgakLaen.webp
-│           inception.webp
-│           interstellar.webp
 │
 └───Python
         Film.py
