@@ -174,13 +174,13 @@ Berikut adalah dokumentasi hasil eksekusi program. Karena program berbasis CLI (
 ### Program CLI (C++ / Java / Python)
 
 #### 1. Pilihan 1: Tambah Data Film (Create)
-![Pilihan 1 - Tambah Data](Dokumentasi/tambah_data_1.png)
-![Pilihan 1 - Tambah Data](Dokumentasi/tambah_data_2.png)
+![Pilihan 1 - Tambah Data](Dokumentasi/tambah_film_1.png)
+![Pilihan 1 - Tambah Data](Dokumentasi/tambah_film_2.png)
 
 ---
 
 #### 2. Pilihan 2: Tampilkan Data Film (Read)
-![Pilihan 2 - Tampilkan Data](Dokumentasi/cli_tampilkan_data.png)
+![Pilihan 2 - Tampilkan Data](Dokumentasi/tampil_daftar.png)
 
 ---
 
