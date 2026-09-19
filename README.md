@@ -174,7 +174,8 @@ Berikut adalah dokumentasi hasil eksekusi program. Karena program berbasis CLI (
 ### Program CLI (C++ / Java / Python)
 
 #### 1. Pilihan 1: Tambah Data Film (Create)
-![Pilihan 1 - Tambah Data](Dokumentasi/cli_tambah_data.png)
+![Pilihan 1 - Tambah Data](Dokumentasi/tambah_data_1.png)
+![Pilihan 1 - Tambah Data](Dokumentasi/tambah_data_2.png)
 
 ---
 
@@ -184,25 +185,27 @@ Berikut adalah dokumentasi hasil eksekusi program. Karena program berbasis CLI (
 ---
 
 #### 3. Pilihan 3: Update Data Film (Update)
-![Pilihan 3 - Update Data](Dokumentasi/cli_update_data.png)
+![Pilihan 3 - Update Data](Dokumentasi/update_film.png)
+![Pilihan 3 - Update Data](Dokumentasi/tampil_after_update.png)
 
 ---
 
 #### 4. Pilihan 4: Hapus Data Film (Delete)
-![Pilihan 4 - Hapus Data](Dokumentasi/cli_hapus_data.png)
+![Pilihan 4 - Hapus Data](Dokumentasi/hapus_data.png)
 
 ---
 
 #### 5. Pilihan 5: Cari Data Film (Search)
-![Pilihan 5 - Cari Data](Dokumentasi/cli_cari_data.png)
+![Pilihan 5 - Cari Data](Dokumentasi/cari_data.png)
+![Pilihan 5 - Cari Data](Dokumentasi/cari_data_null.png)
 
 ---
 
 #### 6. Pilihan 6: Keluar Program (Exit)
-![Pilihan 6 - Keluar](Dokumentasi/cli_keluar.png)
+![Pilihan 6 - Keluar](Dokumentasi/keluar.png)
 
 ---
 
 ### 🌐 Program Web Interface (PHP & Bootstrap 5)
-![PHP Web Interface](Dokumentasi/php_output.png)
+![PHP Web Interface](Dokumentasi/PHP_web_data_film.png)
 
