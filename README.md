@@ -5,7 +5,7 @@ Sistem Manajemen Data Bioskop dalam 4 Bahasa Pemrograman (C++, Java, Python, PHP
 
 ## Janji
 
-> Saya Muhammad Zidan Mirza Fedrieka dengan NIM 2507692 mengerjakan Tugas Praktikum 1 dalam mata kuliah Desain dan Pemrograman Berbasis Objek untuk keberkahan-Nya maka saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
+> Saya Muhammad Zidan Mirza Fedrieka dengan NIM 2507692 mengerjakan Tugas Praktikum 1 dalam mata kuliah Desain Pemrograman Berorientasi Objek untuk keberkahan-Nya maka saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin.
 
 ---
 
@@ -71,7 +71,7 @@ Program mengelola daftar objek `Film` menggunakan struktur data *Array of Object
 
 ---
 
-## 🚀 Cara Menjalankan Program
+## Cara Menjalankan Program
 
 ### 1. C++
 ```bash
@@ -156,48 +156,42 @@ Program ini dilengkapi dengan penanganan kesalahan (*Error Handling*) menyeluruh
 
 ---
 
-## 📷 Dokumentasi Program (Hasil Output)
+## Dokumentasi Program (Hasil Output)
 
 Berikut adalah dokumentasi hasil eksekusi program. Karena program berbasis CLI (**C++**, **Java**, dan **Python**) memiliki alur antarmuka dan keluaran menu yang identik, dokumentasi CLI disajikan secara berurutan mulai dari menu 1 hingga 6:
 
-### 💻 Program CLI (C++ / Java / Python)
+### Program CLI (C++ / Java / Python)
 
 #### 1. Pilihan 1: Tambah Data Film (Create)
 ![Pilihan 1 - Tambah Data](Dokumentasi/cli_tambah_data.png)
-*(Tempatkan screenshot proses penambahan data film baru di folder `Dokumentasi/cli_tambah_data.png`)*
 
 ---
 
 #### 2. Pilihan 2: Tampilkan Data Film (Read)
 ![Pilihan 2 - Tampilkan Data](Dokumentasi/cli_tampilkan_data.png)
-*(Tempatkan screenshot penayangan daftar seluruh film yang tersimpan di folder `Dokumentasi/cli_tampilkan_data.png`)*
 
 ---
 
 #### 3. Pilihan 3: Update Data Film (Update)
 ![Pilihan 3 - Update Data](Dokumentasi/cli_update_data.png)
-*(Tempatkan screenshot pembaruan data film berdasarkan ID di folder `Dokumentasi/cli_update_data.png`)*
 
 ---
 
 #### 4. Pilihan 4: Hapus Data Film (Delete)
 ![Pilihan 4 - Hapus Data](Dokumentasi/cli_hapus_data.png)
-*(Tempatkan screenshot penghapusan data film berdasarkan ID di folder `Dokumentasi/cli_hapus_data.png`)*
 
 ---
 
 #### 5. Pilihan 5: Cari Data Film (Search)
 ![Pilihan 5 - Cari Data](Dokumentasi/cli_cari_data.png)
-*(Tempatkan screenshot hasil pencarian detail film berdasarkan ID di folder `Dokumentasi/cli_cari_data.png`)*
 
 ---
 
 #### 6. Pilihan 6: Keluar Program (Exit)
 ![Pilihan 6 - Keluar](Dokumentasi/cli_keluar.png)
-*(Tempatkan screenshot saat memilih menu keluar program di folder `Dokumentasi/cli_keluar.png`)*
 
 ---
 
 ### 🌐 Program Web Interface (PHP & Bootstrap 5)
 ![PHP Web Interface](Dokumentasi/php_output.png)
-*(Tempatkan screenshot antarmuka web PHP di folder `Dokumentasi/php_output.png`)*
+
