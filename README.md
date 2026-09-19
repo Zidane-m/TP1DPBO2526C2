@@ -169,7 +169,7 @@ Program ini dilengkapi dengan penanganan kesalahan (*Error Handling*) menyeluruh
 
 ## Dokumentasi Program (Hasil Output)
 
-Berikut adalah dokumentasi hasil eksekusi program. Karena program berbasis CLI (**C++**, **Java**, dan **Python**) memiliki alur antarmuka dan keluaran menu yang identik, dokumentasi CLI disajikan secara berurutan mulai dari menu 1 hingga 6:
+Berikut adalah dokumentasi hasil eksekusi program. Karena program berbasis CLI (**C++**, **Java**, dan **Python**) memiliki alur antarmuka dan keluaran menu yang sama, dokumentasi CLI disajikan secara berurutan mulai dari menu 1 hingga 6:
 
 ### Program CLI (C++ / Java / Python)
 
