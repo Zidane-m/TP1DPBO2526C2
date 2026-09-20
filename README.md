@@ -206,6 +206,6 @@ Berikut adalah dokumentasi hasil eksekusi program. Karena program berbasis CLI (
 
 ---
 
-### 🌐 Program Web Interface (PHP)
+### Program Web Interface (PHP)
 ![PHP Web Interface](Dokumentasi/PHP_web_data_film.png)
 
